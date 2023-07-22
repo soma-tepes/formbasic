@@ -1,38 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import "../../styles/CrudForm.css"
-const CrudForm = ({data, setBaseData, baseData,JoinBD}) => {
+const CrudForm = ({ data, setBaseData, baseData, DATABASE_FINAL, setDataFinal }) => {
 
   const [editing, setEditing] = useState(null)
-
-
-    const result = "Fin. Goods (Mass Prod.)";
-
-     
-  const handleEdit=()=>{
-  
+  const result = "Fin. Goods (Mass Prod.)";
+ const handleEdit = () => {
     setEditing(data.id)
-
   }
 
-    const handleDelete =()=>{
-      if (window.confirm("Are you sure?")) {
-       const delet = baseData.filter(element => element.id != data.id)
-       setBaseData(delet)}
-
-       const updatedJoinBD = JoinBD.filter(item => item.id !== data.id);
-      JoinBD = updatedJoinBD;
-      
+  const handleDelete = () => {
+    if (window.confirm("Are you sure?")) {
+      const delet = baseData.filter(element => element.id != data.id)
+      setDataFinal(delet)
+      setBaseData(delet)
     }
+  }
 
-
-  const current = baseData.find(element=> element.id == editing)
+  const current = DATABASE_FINAL.find(element => element.id == editing)
 
 
   const handleUpdate = (e) => {
     e.preventDefault();
-  
+
     if (window.confirm("Are you sure?")) {
-      
+
       const data = {
         id: current.id,
         __EMPTY: current.__EMPTY,
@@ -57,60 +48,62 @@ const CrudForm = ({data, setBaseData, baseData,JoinBD}) => {
         __EMPTY_19: current.__EMPTY_19,
         __EMPTY_20: current.__EMPTY_20
       };
-  
+
       const updateData = baseData.map((amulador) =>
         amulador.id == current.id ? data : amulador
       );
+
       setBaseData(updateData);
+      setDataFinal(updateData)
       setEditing(null);
     }
   };
-  
-  
+
+
   return (
-   <>
-     <div className='card'>
+    <>
+      <div className='card'>
 
         <div className={`card_container  ${data.__EMPTY_11 != result ? 'subdataFinish' : 'subdadaAssy'}`}>
 
-        {
-        editing ? (
-             <div className='formEditModal'>
-               <div className='formContentModal'>
-              <form  onSubmit={handleUpdate}>
-               <span>Model</span><input required type='text' name='__EMPTY_4' defaultValue={current.__EMPTY_4} />
-               <span>Description</span><input required type='text' name='__EMPTY_3'defaultValue={current.__EMPTY_3} />
-               <span>QTY</span><input required type='text' name='__EMPTY_7' defaultValue={current.__EMPTY_7} />
-               <input required type='text' name='__EMPTY_8' defaultValue={current.__EMPTY_8}  />
-              <button >Update</button>
-              <button onClick={(e)=> {  e.preventDefault(); setEditing(false)}}>Cancel</button>
-              </form>
-                 </div>
-              
-             </div>
-           
-          ) : (
-            <ul>
-              
-              <li>{data.__EMPTY_4}</li>
-              <li>{data.__EMPTY_3 ? data.__EMPTY_3 : 'N/A'}</li>
-              <li>{data.__EMPTY_7 ? data.__EMPTY_7 : 'N/A'}</li>
-              <li>{data.__EMPTY_8 ? data.__EMPTY_8 : 'N/A'}</li>
-              
-              <li>{data.__EMPTY_11 != result ? 'Assy' : 'Terminado'}</li> 
-              
-              <div className='card_btns'>
-                <button className='card_btn' onClick={handleEdit}> Edit</button>
-                <button className='card_btn' onClick={handleDelete} >  Delete </button>
+          {
+            editing ? (
+              <div className='formEditModal'>
+                <div className='formContentModal'>
+                  <form onSubmit={handleUpdate}>
+                    <span>Model</span><input required type='text' name='__EMPTY_4' defaultValue={current.__EMPTY_4} />
+                    <span>Description</span><input required type='text' name='__EMPTY_3' defaultValue={current.__EMPTY_3} />
+                    <span>QTY</span><input required type='text' name='__EMPTY_7' defaultValue={current.__EMPTY_7} />
+                    <input required type='text' name='__EMPTY_8' defaultValue={current.__EMPTY_8} />
+                    <button >Update</button>
+                    <button onClick={(e) => { e.preventDefault(); setEditing(false) }}>Cancel</button>
+                  </form>
+                </div>
+
               </div>
-            </ul>
-           )} 
+
+            ) : (
+              <ul>
+
+                <li>{data.__EMPTY_4}</li>
+                <li>{data.__EMPTY_3 ? data.__EMPTY_3 : 'N/A'}</li>
+                <li>{data.__EMPTY_7 ? data.__EMPTY_7 : 'N/A'}</li>
+                <li>{data.__EMPTY_8 ? data.__EMPTY_8 : 'N/A'}</li>
+
+                <li>{data.__EMPTY_11 != result ? 'Assy' : 'Terminado'}</li>
+
+                <div className='card_btns' >
+                  <button className='card_btn' onClick={handleEdit}> Edit</button>
+                  <button className='card_btn' onClick={handleDelete} >  Delete </button>
+                </div>
+              </ul>
+            )}
         </div>
-       {/*  {showModal ? (
+        {/*  {showModal ? (
           <Modal datos={data} elementoEncontrado={elementoEncontrado} handleClose={handleClose} />
         ) : null} */}
       </div>
-   </>
+    </>
   )
 }
 

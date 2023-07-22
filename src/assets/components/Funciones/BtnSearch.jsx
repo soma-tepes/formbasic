@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 
-const BtnSearch = ({setBaseData,JoinBD}) => {
+const BtnSearch = ({baseData,setDataFinal,setPagination}) => {
 
-    const [inputSearch, setInputSearch] = useState("")
+    const [inputSearch, setInputSearch ] = useState("")
 
 const handleSearch = (e)=>{
     e.preventDefault()
+    setPagination(0)
     
-    
-  const x = JoinBD.filter(data => {
+  const x = baseData.filter(data => {
     const value = data.__EMPTY_4;
     const value2 = data.__EMPTY_7;
     const value3 = data.__EMPTY_3;
@@ -23,11 +23,11 @@ const handleSearch = (e)=>{
   
   if(inputSearch){
     if(x.length>0){
-        setBaseData(x)
-        
-    }else{setBaseData([])}
+        setDataFinal(x)
+        setPagination(0)
+    }else{setDataFinal([])}
   }
-  else{setBaseData(JoinBD)}
+  else{setDataFinal(baseData)}
 }
     return (
         <>

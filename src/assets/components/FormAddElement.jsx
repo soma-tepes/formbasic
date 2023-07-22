@@ -2,7 +2,7 @@ import React from 'react'
 import '../styles/FormAddElement.css'
 import { v4 as uuidv4 } from 'uuid';
 
-const FormAddElement = ({setBaseData,setModal}) => {
+const FormAddElement = ({setBaseData,setModal,setDataFinal}) => {
 
     const handleSubmit =(e)=>{
 
@@ -38,6 +38,7 @@ const FormAddElement = ({setBaseData,setModal}) => {
         }
       
         setBaseData((element)=>[...element,data])
+        setDataFinal((element)=>[...element,data])
         setModal(false)
       }
    return (
