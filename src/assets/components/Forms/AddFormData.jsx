@@ -8,8 +8,10 @@ import BtnSearch from '../Funciones/BtnSearch';
 
 
 const AddFormData = ({BaseData : JoinBD}) => {
+   // Filter data Null
+  const JoinBDjr = JoinBD.filter(e=> e.__EMPTY_1 && e.__EMPTY_4 != 'Material' ? e : false)
 
-const [baseData, setBaseData] = useState(JoinBD)//valor modificable
+const [baseData, setBaseData] = useState(JoinBDjr)//valor modificable
 const [pagination, setPagination] = useState(0)
 const [modal, setModal] = useState(false)
 const [DATABASE_FINAL,setDataFinal] = useState(baseData) 
@@ -26,24 +28,29 @@ const  showPage = DATABASE_FINAL
   setPagination={setPagination} setDataFinal={setDataFinal} DATABASE_FINAL={DATABASE_FINAL}
   />
   );
-    const changepage = ({ selected }) => {
+    const handlePageChange = ({ selected }) => {
     setPagination(selected);
+   
   };
 //
   return (
     <div>
 
-<div> <button onClick={()=>{setModal(true)}} className='dbCard_btn'>ADD MODEL ✔</button></div>
+<div>
+   <button onClick={()=>{setModal(true)}} className='dbCard_btn'>ADD MODEL ✔</button>
+</div>
    
- <BtnSearch setBaseData={setBaseData} baseData={baseData} JoinBD={JoinBD} setPagination={setPagination}
- DATABASE_FINAL={DATABASE_FINAL} setDataFinal={setDataFinal} />
+ < BtnSearch setBaseData={setBaseData} baseData={baseData} JoinBD={JoinBD} setPagination={setPagination}
+    DATABASE_FINAL={DATABASE_FINAL} setDataFinal={setDataFinal} />
    
 
- <Pagination totalPages={totalPages} changepage={changepage} />
+ <Pagination totalPages={totalPages} currentPage={pagination} onPageChange={handlePageChange} />
 
 <ShowElementPagination showPage={showPage}/>
  
-<Pagination totalPages={totalPages} changepage={changepage}/>
+<Pagination totalPages={totalPages} currentPage={pagination} onPageChange={handlePageChange}/>
+
+
 { modal && <FormAddElement setBaseData={setBaseData} setModal={setModal} setDataFinal={setDataFinal} />} 
 
     </div>
