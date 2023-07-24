@@ -51,7 +51,10 @@ const  showPage = DATABASE_FINAL
 <Pagination totalPages={totalPages} currentPage={pagination} onPageChange={handlePageChange}/>
 
 
-{ modal && <FormAddElement setBaseData={setBaseData} setModal={setModal} setDataFinal={setDataFinal} />} 
+{ modal && 
+ <FormAddElement setBaseData={setBaseData} setModal={setModal} setDataFinal={setDataFinal} 
+ DATABASE_FINAL={DATABASE_FINAL}
+ />} 
 
     </div>
   )

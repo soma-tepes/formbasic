@@ -7,7 +7,9 @@ const BtnSearch = ({baseData,setDataFinal,setPagination}) => {
 const handleSearch = (e)=>{
     e.preventDefault()
     setPagination(0)
-    
+
+   
+
   const x = baseData.filter(data => {
     const value = data.__EMPTY_4;
     const value2 = data.__EMPTY_7;

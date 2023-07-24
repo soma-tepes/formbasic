@@ -22,6 +22,9 @@ const CrudForm = ({ data, setBaseData, baseData, DATABASE_FINAL, setDataFinal })
   const handleUpdate = (e) => {
     e.preventDefault();
 
+   
+
+
     if (window.confirm("Are you sure?")) {
 
       const data = {
@@ -30,11 +33,11 @@ const CrudForm = ({ data, setBaseData, baseData, DATABASE_FINAL, setDataFinal })
         __EMPTY_1: current.__EMPTY1,
         __EMPTY_2: current.__EMPTY2,
         __EMPTY_3: e.target.__EMPTY_3.value.toUpperCase(),
-        __EMPTY_4: e.target.__EMPTY_4.value,
+        __EMPTY_4: e.target.__EMPTY_4.value.toUpperCase(),
         __EMPTY_5: current.__EMPTY_5,
         __EMPTY_6: current.__EMPTY_6,
-        __EMPTY_7: e.target.__EMPTY_7.value,
-        __EMPTY_8: e.target.__EMPTY_8.value,
+        __EMPTY_7: e.target.__EMPTY_7.value.toUpperCase(),
+        __EMPTY_8: e.target.__EMPTY_8.value.toUpperCase(),
         __EMPTY_9: current.__EMPTY_9,
         __EMPTY_10: current.__EMPTY_10,
         __EMPTY_11: current.__EMPTY_11,
@@ -49,8 +52,11 @@ const CrudForm = ({ data, setBaseData, baseData, DATABASE_FINAL, setDataFinal })
         __EMPTY_20: current.__EMPTY_20
       };
 
-      const updateData = baseData.map((amulador) =>
-        amulador.id == current.id ? data : amulador
+      const norepeat = DATABASE_FINAL.some(element=>element.__EMPTY_4 == e.target.__EMPTY_4.value.toUpperCase() && e.id != current.id)
+      if(norepeat) {return alert ("This model is already in the database.")}
+
+      const updateData = baseData.map((element) =>
+        element.id == current.id ? data : element
       );
 
       setBaseData(updateData);
